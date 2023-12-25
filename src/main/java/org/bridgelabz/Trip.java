@@ -7,10 +7,17 @@ package org.bridgelabz;
 public class Trip {
     private double distance;
     private int duration;
+    private TripCategory category;
+    public enum TripCategory {
+        NORMAL,
+        PREMIUM
+    }
 
-    public Trip(double distance, int duration) {
+
+    public Trip(double distance, int duration, TripCategory category) {
         this.distance = distance;
         this.duration = duration;
+        this.category=category;
     }
 
     public double getDistance() {
@@ -19,5 +26,8 @@ public class Trip {
 
     public int getDuration() {
         return duration;
+    }
+    public TripCategory getCategory() {
+        return category;
     }
 }

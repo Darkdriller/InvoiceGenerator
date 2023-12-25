@@ -24,8 +24,8 @@ public class InvoiceGeneratorTest {
     @Test
     public void calculateInvoice_ShouldReturnCorrectValues_WhenRidesProvided() {
         List<Trip> trips = Arrays.asList(
-                new Trip(5.0, 50),  // Rs. 100
-                new Trip(7.0, 5)    // Rs. 75
+                new Trip(5.0, 50,Trip.TripCategory.NORMAL),  // Rs. 100
+                new Trip(7.0, 5,Trip.TripCategory.PREMIUM)    // Rs. 115
         );
 
 
@@ -33,8 +33,8 @@ public class InvoiceGeneratorTest {
         InvoiceSummary invoiceSummary =invoiceService.getInvoiceForUser("User123");
 
         assertEquals(2, invoiceSummary.getTotalTrips());
-        assertEquals(175.0, invoiceSummary.getTotalFare(), 0.0);
-        assertEquals(87.5, invoiceSummary.getAverageFarePerRide(), 0.0);
+        assertEquals(215.0, invoiceSummary.getTotalFare(), 0.0);
+        assertEquals(107.5, invoiceSummary.getAverageFarePerRide(), 0.0);
     }
 
 

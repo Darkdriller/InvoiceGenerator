@@ -9,21 +9,23 @@ import java.util.List;
 
 public class InvoiceGenerator {
 
-    public double calculateFare(double distance, int time) {
-        double fare = 0.0;
-        // Rs. 10 per kilometer
-        fare += 10.0 * distance;
-
-        // Rs. 1 per minute
-        fare += 1.0 * time;
-
-        return Math.max(fare,5.0);
+    public double calculateFare(Trip trip) {
+        switch (trip.getCategory()) {
+            case NORMAL:
+                double fare = 10 * trip.getDistance() + 1 * trip.getDuration();
+                return Math.max(fare, 5);
+            case PREMIUM:
+                fare = 15 * trip.getDistance()+ 2 * trip.getDuration();
+                return Math.max(fare, 20);
+            default:
+                throw new IllegalArgumentException("Invalid ride category");
+        }
     }
     public double calculateTotalFare(List<Trip> trips){
         double totalFare = 0.0;
 
         for (Trip trip : trips) {
-            double rideFare = calculateFare(trip.getDistance(), trip.getDuration());
+            double rideFare = calculateFare(trip);
             totalFare += rideFare;
         }
 
