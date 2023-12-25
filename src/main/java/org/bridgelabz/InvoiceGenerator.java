@@ -29,4 +29,11 @@ public class InvoiceGenerator {
 
         return totalFare;
     }
+
+    public InvoiceSummary calculateInvoice(List<Trip> trips){
+        double totalFare = calculateTotalFare(trips);
+        int totalTrips = trips.size();
+        double averageFarePerRide = (totalTrips > 0) ? totalFare / totalTrips : 0.0;
+        return new InvoiceSummary(totalTrips, totalFare, averageFarePerRide);
+    }
 }

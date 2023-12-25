@@ -1,9 +1,10 @@
+import org.bridgelabz.InvoiceSummary;
 import org.bridgelabz.InvoiceGenerator;
 import org.bridgelabz.Trip;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -20,18 +21,21 @@ public class InvoiceGeneratorTest {
         invoiceGenerator = new InvoiceGenerator();
     }
     @Test
-    public void calculateTotalFare_ShouldReturnCorrectFare_WhenMultipleRides() {
-
-        List<Trip> trips = new ArrayList<>();
-        trips.add(new Trip(7.0, 10));  // Trip 1: 7 kilometers, 10 minutes
-        trips.add(new Trip(2.0, 8));   // Trip 2: 2 kilometers, 8 minutes
-
-
-        double totalFare = invoiceGenerator.calculateTotalFare(trips);
+    public void calculateInvoice_ShouldReturnCorrectValues_WhenRidesProvided() {
+        List<Trip> rides = Arrays.asList(
+                new Trip(5.0, 50),  // Rs. 100
+                new Trip(7.0, 5)    // Rs. 75
+        );
 
 
-        assertEquals( 108.0 ,totalFare, 0.0);
+        InvoiceSummary invoiceSummary = invoiceGenerator.calculateInvoice(rides);
+
+
+        assertEquals(2, invoiceSummary.getTotalTrips());
+        assertEquals(175.0, invoiceSummary.getTotalFare(), 0.0);
+        assertEquals(87.5, invoiceSummary.getAverageFarePerRide(), 0.0);
     }
+
 
 
 
