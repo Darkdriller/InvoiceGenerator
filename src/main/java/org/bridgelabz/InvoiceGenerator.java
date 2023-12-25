@@ -1,3 +1,4 @@
+package org.bridgelabz;
 /**
  * @author Dhruv
  * @project CabInvoiceGenerator
@@ -17,5 +18,15 @@ public class InvoiceGenerator {
         fare += 1.0 * time;
 
         return Math.max(fare,5.0);
+    }
+    public double calculateTotalFare(List<Trip> trips){
+        double totalFare = 0.0;
+
+        for (Trip trip : trips) {
+            double rideFare = calculateFare(trip.getDistance(), trip.getDuration());
+            totalFare += rideFare;
+        }
+
+        return totalFare;
     }
 }
