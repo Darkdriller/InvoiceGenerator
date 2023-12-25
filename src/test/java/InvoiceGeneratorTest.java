@@ -1,3 +1,4 @@
+import org.bridgelabz.InvoiceService;
 import org.bridgelabz.InvoiceSummary;
 import org.bridgelabz.InvoiceGenerator;
 import org.bridgelabz.Trip;
@@ -14,22 +15,22 @@ import static org.junit.Assert.assertEquals;
  * @project CabInvoiceGenerator
  */
 public class InvoiceGeneratorTest {
-    private InvoiceGenerator invoiceGenerator;
+    private InvoiceService invoiceService;
 
     @Before    // Create a single instance of org.bridgelabz.InvoiceGenerator to be reused in each test
     public void setUp() {
-        invoiceGenerator = new InvoiceGenerator();
+        invoiceService = new InvoiceService();
     }
     @Test
     public void calculateInvoice_ShouldReturnCorrectValues_WhenRidesProvided() {
-        List<Trip> rides = Arrays.asList(
+        List<Trip> trips = Arrays.asList(
                 new Trip(5.0, 50),  // Rs. 100
                 new Trip(7.0, 5)    // Rs. 75
         );
 
 
-        InvoiceSummary invoiceSummary = invoiceGenerator.calculateInvoice(rides);
-
+        invoiceService.addTrips("User123",trips);
+        InvoiceSummary invoiceSummary =invoiceService.getInvoiceForUser("User123");
 
         assertEquals(2, invoiceSummary.getTotalTrips());
         assertEquals(175.0, invoiceSummary.getTotalFare(), 0.0);
